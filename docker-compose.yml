@@ -1,0 +1,32 @@
+version: '3.7'
+
+services:
+  nginx:
+    image: nginx:latest
+    container_name: nginx
+    hostname: nginx
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d/
+    ports:
+      - "80:80"
+#    networks:
+#      - localnetwork
+    depends_on:
+      - apodnasa
+    restart:
+      always
+  apodnasa:
+    build: .
+    container_name: apodnasa
+    hostname: apodnasa
+    ports:
+      - "8000:8000"
+#    networks:
+#      localnetwork:
+#        aliases:
+#          - apodnasa
+    restart:
+      always
+
+#networks:
+#  localnetwork:
